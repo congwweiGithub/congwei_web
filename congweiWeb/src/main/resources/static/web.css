@@ -61,14 +61,15 @@ input{
 }
 
 a:link{                   
-	  color:rgb(0, 255, 128);
-	}
-	a:visited{                 
-	  color:rgb(64, 0, 128);
+	  color:rgb(128, 0, 64);
 	}
 	a:hover{                 
-	  color:rgb(255, 0, 0)
+	  color:rgb(255, 0, 0);
 	}
+	a:visited{                 
+	  color:rgb(0, 0, 255);
+	}
+	
 	a:active{                
 	  color:Gold;
 	}

@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="../static/web.css">
 		<h1 align="center">Blog Editor</h1>
-		<style>	
+		<style>
 			div {
 				position: absolute;
 				top: 10%;
@@ -13,36 +13,72 @@
 				margin-left: 0px;
 				margin-top: 0px;
 			}
-			input.describe{
+
+			input.describe {
 				width: 800px;
 				height: auto;
 			}
-			input.editor{
+
+			input.editor {
 				width: 800px;
 				height: 200px;
-				vertical-align:top;	
-				align-self: flex-start;	
-			}
-			#picture{
+				vertical-align: top;
 				
 			}
+
+			div.upload-picture{
+				box-sizing:border-box;
+				width:40%;
+				height:200px;
+				border:2px solid rgb(192, 192, 192,0.5);
+				margin-left:100px;
+			}
 			
+			#picture {
+				box-sizing:border-box;			
+				margin-top:0px;
+				outline:none;	
+				
+				background-color:rgb(192, 192, 192,0);
+				width:100%;
+				height:auto;
+				border:0;
+				vertical-align:center;
+		
+			}
+			
+			div.upload-picture div:first-child{
+				box-sizing:border-box;
+				float:left;
+				width:auto;
+				height:auto;			
+			}
+			.upload-picture button{
+				margin-left:22px;
+				margin-top:10px;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div>
 			<form>
-				<label for="title" style=" font-family:'仿宋';font-size:26px;"align="left">&ensp;&ensp;&ensp;标题</label>
+				<label for="title" style=" font-family:'仿宋';font-size:26px;" align="left">&ensp;&ensp;&ensp;标题</label>
 				<input type="text" class="describe" name="title" placeholder="Enter Title"></input><br>
-				<label for="describe" style=" font-family:'仿宋';font-size:15px;"align="left">&ensp;&ensp;&ensp;&ensp;内容简介</label>
+				<label for="describe" style=" font-family:'仿宋';font-size:15px;"
+					align="left">&ensp;&ensp;&ensp;&ensp;内容简介</label>
 				<input type="text" class="describe" name="describee" placeholder="Enter Describe"></input><br>
-				<label for="describe" style=" font-family:'仿宋';font-size:22px;"align="left">编辑内容</label>
+				<label for="describe" style=" font-family:'仿宋';font-size:22px;" align="left">编辑内容</label>
 				<input type="text" class="editor" name="editor" placeholder="Enter Describe"></input><br>
-				<label for="picture" style=" font-family:'仿宋';font-size:22px;"align="left">上传图片</label>
-				<input type="text" id="picture" name="picture" placeholder="Enter Describe"></input><br>
 			</form>
+			<label for="describe" style=" font-family:'仿宋';font-size:22px;" align="left">上传图片</label>
+			<div class="upload-picture" style="position: relative">				
+				<div><button style="background-color:rgb(192, 192, 192,0.05);border:none">
+				<img src="../static/upload.svg" style="opacity:0.5;margin:40px 45px">
+				</button></div>
+				<input type="text" id="picture" name="picture" placeholder= "image file..."></input><br>											
+			</div>
 		</div>
 	</body>
-
+	
 	</html>
