@@ -62,21 +62,21 @@ input{
 
 a:link{                   
 	  color:rgb(128, 0, 64);
-	}
-	a:hover{                 
-	  color:rgb(255, 0, 0);
-	}
-	a:visited{                 
-	  color:rgb(0, 0, 255);
-	}
+}
 	
-	a:active{                
+a:visited{                 
+	  color:rgb(0, 0, 255);
+}
+a:hover{                 
+	  color:rgb(255, 0, 0);
+}	
+a:active{                
 	  color:Gold;
-	}
+}
 #button{
 	width: 50%;
     height: 30px;
-    border-radius: 4px;
+    border-radius: 10px;
     opacity:0.5;  
     color: rgb(0, 0, 0);
     background-color: rgb(128, 128, 255,0.6); 
