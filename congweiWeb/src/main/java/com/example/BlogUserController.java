@@ -35,7 +35,7 @@ public class BlogUserController {
 			@RequestParam("pw") String password, //
 			@RequestParam("rpw") String repassword, //
 			ModelAndView mv) {
-		if (username.length() < 3 || password.length() <= 6 //
+		if (username.length() < 3 || password.length() < 6 //
 				|| !repassword.equals(password)) { //
 			mv.setViewName("loginFailed");
 		} else {
@@ -51,11 +51,11 @@ public class BlogUserController {
 
 	@PostMapping("/blog.html")
 	public ModelAndView blog(//
-			@RequestParam("un") String username, //
-			@RequestParam("pw") String password, //
+			@RequestParam("username") String username, //
+			@RequestParam("password") String password, //
 			ModelAndView mv) {
 
-		mv.addObject("un", username);
+		mv.addObject("username", username);
 		BlogUserInfo userInfo = bloguserInfoRepository.findByUsername(username);
 
 		if (userInfo != null && password.equals(userInfo.getPassword())) {
@@ -67,5 +67,11 @@ public class BlogUserController {
 
 		return mv;
 	}
+	@GetMapping("/blog")
+	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
+	public String getBlogView() {
 
+		return "blog";
+	}
+		
 }

@@ -1,5 +1,5 @@
 body{
-    background:url("../static/background.jpeg");
+    background:url("background.jpeg");
    
 }
 
@@ -10,7 +10,7 @@ body{
     height: auto;
     padding: 10px;
 
-    background:url("../static/background1.jpeg");
+    background:url("background1.jpeg");
 
     position: absolute;
     top: 30%;
@@ -74,7 +74,7 @@ a:active{
 	  color:Gold;
 }
 #button{
-	width: 50%;
+	width: 40%;
     height: 30px;
     border-radius: 10px;
     opacity:0.5;  
@@ -82,11 +82,7 @@ a:active{
     background-color: rgb(128, 128, 255,0.6); 
 }
 #button:hover{
-	  background-color:rgb(131, 252, 231,0.8);	 
-	  color:rgb(255, 0, 0);
+	  border-color: rgb(0, 255, 255);
 }
 	  
-#button:active{           
-	  background-color:White;
-	   color:rgb(0, 255, 0); 
-}
+
