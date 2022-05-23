@@ -16,10 +16,10 @@ public class BlogUserController {
 	@Autowired
 	private BlogUserInfoRepository bloguserInfoRepository;
 
-	@GetMapping("/setup")
+	@GetMapping("/register")
 	public String getSetUpView() {
 
-		return "setUp";
+		return "register";
 	}
 
 	@GetMapping("/login")
@@ -29,12 +29,13 @@ public class BlogUserController {
 		return "login";
 	}
 
-	@PostMapping("/login.html")
+	@PostMapping("/register")  //此操作在register中进行
 	public ModelAndView login(//
 			@RequestParam("username") String username, //
 			@RequestParam("pw") String password, //
 			@RequestParam("rpw") String repassword, //
 			ModelAndView mv) {
+	
 		if (username.length() < 3 || password.length() < 6 //
 				|| !repassword.equals(password)) { //
 			mv.setViewName("loginFailed");
@@ -49,7 +50,7 @@ public class BlogUserController {
 		return mv;
 	}
 
-	@PostMapping("/blog.html")
+	@PostMapping("/login")//此操作在login中进行
 	public ModelAndView blog(//
 			@RequestParam("username") String username, //
 			@RequestParam("password") String password, //
@@ -67,6 +68,7 @@ public class BlogUserController {
 
 		return mv;
 	}
+	
 	@GetMapping("/blog")
 	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
 	public String getBlogView() {

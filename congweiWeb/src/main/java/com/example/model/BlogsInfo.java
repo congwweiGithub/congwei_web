@@ -23,7 +23,7 @@ public class BlogsInfo {
 		private Long id;
 		private String title;
 		private String description;
-		private Text  article;
-		private String  picturePath;
+//		private Text  article;
+//		private String  picturePath;
 	
 }
