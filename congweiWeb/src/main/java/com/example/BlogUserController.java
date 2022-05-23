@@ -1,5 +1,7 @@
 package com.example;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,13 +10,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.model.BlogUserInfo;
+import com.example.model.BlogsInfo;
 import com.example.repository.BlogUserInfoRepository;
+import com.example.repository.BlogsInfoRepository;
 
 @Controller
 public class BlogUserController {
 
 	@Autowired
 	private BlogUserInfoRepository bloguserInfoRepository;
+	@Autowired	
+	private BlogsInfoRepository blogsInfoRepository;
 
 	@GetMapping("/register")
 	public String getSetUpView() {
@@ -61,19 +67,16 @@ public class BlogUserController {
 
 		if (userInfo != null && password.equals(userInfo.getPassword())) {
 			mv.setViewName("blog");
-
+			List<BlogsInfo> blogs = blogsInfoRepository.findAll();
+			
+			mv.addObject("blogs", blogs);
+			mv.setViewName("blog");
+			System.out.println("1111111111"+blogs.size());
 		} else {
 			mv.setViewName("loginFailed");
 		}
 
 		return mv;
 	}
-	
-	@GetMapping("/blog")
-	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
-	public String getBlogView() {
-
-		return "blog";
-	}
-		
+			
 }

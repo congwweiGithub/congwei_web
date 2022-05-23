@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.websocket.Decoder.Text;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,10 +19,10 @@ public class BlogsInfo {
 				
 		@Id
 		@GeneratedValue(strategy = GenerationType.AUTO)		
-		private Long id;
+		private Long blogId;
 		private String title;
 		private String description;
-//		private Text  article;
-//		private String  picturePath;
+		private String  article;
+
 	
 }
