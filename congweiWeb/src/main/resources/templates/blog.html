@@ -73,11 +73,11 @@
 						<pre th:text="*{article}" style=" font-family:'仿宋';font-size:20px;text-align:left">
 						</pre>
 						<span>
-							<div class="btn-group"  style="margin-left:-1300px;">
-								<button type="button" class="btn btn-default" >
-									<a href="/edit"> 修改 </a>
+							<div class="btn-group" style="margin-left:-1300px;">
+								<button type="button" class="btn btn-default">
+									<a th:href="@{/edit/{blogId}(blogId=*{blogId})}"> 修改 </a>
 								</button>
-								<button type="button" class="btn btn-default" >
+								<button type="button" class="btn btn-default">
 									<a href="/edit"> 删除 </a>
 								</button>
 							</div>
@@ -101,9 +101,10 @@
 							<a href="/lastPage">尾 页</a>
 						</button>
 					</div>
+					
 					<div class="btn-group">
 						<button type="button" class="btn btn-default" style="margin-left: 30px">
-							<a href="/edit">编 辑</a>
+							<a  th:href="|/edit?username=${username}|">编 辑</a> 
 						</button>
 					</div>
 

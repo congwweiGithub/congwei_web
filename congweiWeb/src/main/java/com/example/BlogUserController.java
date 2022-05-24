@@ -61,7 +61,7 @@ public class BlogUserController {
 		BlogUserInfo userInfo = bloguserInfoRepository.findByUsername(username);
 
 		if (userInfo != null && password.equals(userInfo.getPassword())) {
-			mv.setViewName("/blog");	
+			mv.setViewName("redirect:/blog");	
 			
 			
 		} else {

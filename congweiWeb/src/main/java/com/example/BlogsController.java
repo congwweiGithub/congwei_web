@@ -19,15 +19,21 @@ public class BlogsController {
 	@GetMapping("/edit")
 	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
 	public String getEditView() {
-
+		
 		return "edit";
 	}
+	@GetMapping("/lastPage")
+	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
+	public String getLastPage() {
 
+		return "lastPage";
+	}
 	@PostMapping("/edit")  //此操作在register中进行
 	public ModelAndView blog(//
 			@RequestParam("title") String title, //
 			@RequestParam("description") String description, //
-			@RequestParam("article") String article, //
+			@RequestParam("article") String article, //	
+//			@RequestParam("username") String username, 
 			ModelAndView mv) {
 	
 		if (title.isEmpty()|| description.isEmpty() //
@@ -40,24 +46,39 @@ public class BlogsController {
 					.article(article)//
 					.build();
 			blogsInfoRepository.save(blogsInfo);
-			mv.addObject("title", blogsInfo.getTitle());
+//			mv.addObject("title", blogsInfo.getTitle());
+			mv.addObject("username", "xiongda");
 			mv.setViewName("redirect:/blog");
 		
 		}
 		return mv;
 	}
+	
+	@GetMapping("/edit/{blogId}")  //此操作在register中进行
+	public String upDateblog(//
+			
+//			@RequestParam("blogId") Long blogId, 
+			ModelAndView mv) {					
+		
+		BlogsInfo blogs = blogsInfoRepository.findByBlogId(Long.valueOf("108"));
+		System.out.println("222222222222222");
+			mv.addObject("blogs", blogs);			
+		return "edit";
+	}
+	
 	@GetMapping("/blog")
 	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
-	public ModelAndView getBlogView(ModelAndView mv) {
+	public ModelAndView getBlogView(
+			@RequestParam("username") String username,
+			ModelAndView mv) {
 		List<BlogsInfo> blogs = blogsInfoRepository.findAll();
 		System.out.println("1111111111111111");
+		mv.addObject("username", username);
 		mv.addObject("blogs", blogs);
 		mv.setViewName("blog");
 		
 		return mv;
 	}
 	
-	
-
-	
+			
 }

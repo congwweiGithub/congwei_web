@@ -25,5 +25,5 @@ public class BlogUserInfo {
 	private String username;
 	private String password;
 	
-}	
-   //此类中定义的就是表格中显示的列
+}
+  
