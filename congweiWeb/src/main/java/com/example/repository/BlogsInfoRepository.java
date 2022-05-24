@@ -6,5 +6,5 @@ import com.example.model.BlogsInfo;
 
 public interface BlogsInfoRepository extends JpaRepository<BlogsInfo,Long> {
 
-	BlogsInfo findByTitle(String title);
+	BlogsInfo findByBlogId(String blogId);
 }

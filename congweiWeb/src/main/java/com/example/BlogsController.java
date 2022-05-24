@@ -41,20 +41,20 @@ public class BlogsController {
 					.build();
 			blogsInfoRepository.save(blogsInfo);
 			mv.addObject("title", blogsInfo.getTitle());
-			mv.setViewName("blog");
-			System.out.println("22222222");
+			mv.setViewName("redirect:/blog");
+		
 		}
 		return mv;
 	}
-	@PostMapping("/blog")
+	@GetMapping("/blog")
 	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
-	public String getBlogView(ModelAndView mv) {
+	public ModelAndView getBlogView(ModelAndView mv) {
 		List<BlogsInfo> blogs = blogsInfoRepository.findAll();
-		
+		System.out.println("1111111111111111");
 		mv.addObject("blogs", blogs);
 		mv.setViewName("blog");
-		System.out.println("1111111111");
-		return "mv";
+		
+		return mv;
 	}
 	
 	

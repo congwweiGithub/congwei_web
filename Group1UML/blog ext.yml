@@ -1,0 +1,279 @@
+openapi: '3.0.2'
+info:
+  title: blogs system
+  description: this is a blogs system for Lighthouse Plan
+  version: '1.0'
+servers:
+  - url: https://localhost:8080
+paths:
+  /login:
+    get:
+      tags:
+        - users
+      description: '返回登陆界面'
+      operationId: getLoginView
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/LoginHtml"
+    post:
+      tags:
+        - users
+      description: '接受用户登陆信息,成功的话返回blog页面'
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+              type: "object"
+              properties:
+                username:
+                  type: "string"
+                password:
+                  type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/Login"
+  /register:
+    get:
+      tags:
+        - users
+      description: '返回注册界面'
+      operationId: getRegisterView
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                type: "string"
+                example: "register.html" 
+    post:
+      tags:
+        - users
+      description: '接受用户输入信息,两次密码一致的话返回login页面'
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+              type: "object"
+              properties:
+                username:
+                  type: "string"
+                password:
+                  type: "string"
+                passwordAgain:
+                  type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/LoginHtml"
+  /blog:
+    get:
+      tags:
+        - blogs
+      description: '返回博客界面'
+      operationId: getBlogView
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+                type: "object"
+                properties:
+                  userId:
+                    type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/BlogHtml"
+  /edit:
+    get:
+      tags:
+        - blogs
+      description: '返回编辑界面'
+      operationId: getEditView
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+                type: "object"
+                properties:
+                  userId:
+                    type: "string"
+                  blogId:
+                    type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                type: "string"
+                example: "edit.html" 
+    post:
+      tags:
+        - blogs
+      description: '接受用户输入编辑信息,并返回blog页面'
+      operationId: addBlog
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+              type: "object"
+              properties:
+                username:
+                  type: "string"
+                title:
+                  type: "string"
+                content:
+                  type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/BlogHtml"
+  /delete:
+    get:
+      tags:
+        - blogs
+      description: '接受删除blog的信息，并返回新的blog页面'
+      operationId: deleteBlog
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+                type: "object"
+                properties:
+                  userId:
+                    type: "string"
+                  blogId:
+                    type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/BlogHtml"
+
+  /update:
+    get:
+      tags:
+        - blogs
+      description: '返回更新页面'
+      operationId: deleteBlog
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+                type: "object"
+                properties:
+                  userId:
+                    type: "string"
+                  blogId:
+                    type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/UpdateHtml"
+    post:
+      tags:
+        - blogs
+      description: '接受用户输入更新的信息,并返回blog页面'
+      operationId: updateBlog
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+              type: "object"
+              properties:
+                username:
+                  type: "string"
+                blogId:
+                  type: "string"
+                title:
+                  type: "string"
+                content:
+                  type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/BlogHtml"
+components:
+  schemas:
+    LoginHtml:
+      type: "string"
+      example: "login.html" 
+    Login:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        view:
+          type: "string"
+          example: "blog"
+    BlogHtml:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        blogs:
+          type: array
+          items:
+            $ref: "#/components/schemas/Blog"
+        view:
+          type: "string"
+          example: "blog.html"
+    UpdateHtml:
+      type: "object"
+      properties:
+        userId:
+          type: "string"
+        username:
+          type: "string"
+        blog:
+          type: "object"
+          items:
+            $ref: "#/components/schemas/Blog"
+        view:
+          type: "string"
+          example: "update.html"
+    Blog:
+      type: "object"
+      properties:
+        userId:
+          type: "string"
+        title:
+          type: "string"
+        content:
+          type: "string"

@@ -1,7 +1,5 @@
 package com.example;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,17 +8,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.model.BlogUserInfo;
-import com.example.model.BlogsInfo;
 import com.example.repository.BlogUserInfoRepository;
-import com.example.repository.BlogsInfoRepository;
 
 @Controller
 public class BlogUserController {
 
 	@Autowired
 	private BlogUserInfoRepository bloguserInfoRepository;
-	@Autowired	
-	private BlogsInfoRepository blogsInfoRepository;
+	
 
 	@GetMapping("/register")
 	public String getSetUpView() {
@@ -51,7 +46,7 @@ public class BlogUserController {
 					.password(password).build();
 			bloguserInfoRepository.save(bloguserInfo);
 			mv.addObject("username", bloguserInfo.getUsername());
-			mv.setViewName("login");
+			mv.setViewName("redirect:/login");
 		}
 		return mv;
 	}
@@ -66,12 +61,9 @@ public class BlogUserController {
 		BlogUserInfo userInfo = bloguserInfoRepository.findByUsername(username);
 
 		if (userInfo != null && password.equals(userInfo.getPassword())) {
-			mv.setViewName("blog");
-			List<BlogsInfo> blogs = blogsInfoRepository.findAll();
+			mv.setViewName("/blog");	
 			
-			mv.addObject("blogs", blogs);
-			mv.setViewName("blog");
-			System.out.println("1111111111"+blogs.size());
+			
 		} else {
 			mv.setViewName("loginFailed");
 		}
