@@ -4,52 +4,14 @@ info:
   description: this is a blogs system for my first project
   version: '1.0'
 servers:
-  - url: https://localhost:8081
+  - url: http://localhost:8081
 paths:
-  /setup:
-    get:
-      tags:
-        - Users
-      description: '返回登陆界面'
-      operationId: getSetUPView
-      responses:
-        '200':
-          description: OK
-          content:
-            text/html:    
-              schema:
-                $ref: "#/components/schemas/SetUpHtml"
-
-    post:
-      tags:
-        - Users
-      description: '接受用户注册信息,注册成功进入登录界面'
-      operationId: login
-      requestBody:
-        required: true
-        content:
-          text/json:
-            schema:
-              type: "object"
-              properties:
-                username:
-                  type: "string"
-                password:
-                  type: "string"
-                repassword:
-                  type: "string"
-      responses:
-        '200':
-          description: OK
-          content:
-            text/html:    
-              schema:
-                $ref: "#/components/schemas/Login"
+  
   /login:
     get:
       tags:
         - Users
-      description: '用户已有账户直接进入登陆界面'
+      description: '返回登陆界面'
       operationId: getLoginView
       responses:
         '200':
@@ -83,29 +45,25 @@ paths:
               schema:
                 $ref: "#/components/schemas/Blog"            
     
-
-  /blog:
+  /register:
     get:
       tags:
-        - Blogs
-      description: '点击博客界面编辑按钮，进入编辑界面'
-      operationId: getBlogEditorView
+        - Users
+      description: '没有用户点击注册按钮，进入登陆界面'
+      operationId: getRegisterView
       responses:
         '200':
           description: OK
           content:
             text/html:    
               schema:
-                $ref: "#/components/schemas/BlogEditorHtml"    
-    
+                $ref: "#/components/schemas/RegisterHtml"
 
-  /blogEditor:
-   
     post:
       tags:
-        - Blogs
-      description: '用户编辑内容，添加至博客页面'
-      operationId: blog
+        - Users
+      description: '接受用户注册信息,注册成功进入登录界面'
+      operationId: login
       requestBody:
         required: true
         content:
@@ -117,6 +75,80 @@ paths:
                   type: "string"
                 password:
                   type: "string"
+                repassword:
+                  type: "string"
+                view:
+                  type: "string"
+                  example: "(创建成功后)跳转至登陆界面"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/Login"
+
+  /blog:
+    get:
+      tags:
+        - Blogs
+      description: '返回博客界面'
+      operationId: getBlogView
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+                type: "object"
+                properties:
+                  username:
+                    type: "string"
+                  
+                  
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/BlogHtml"    
+    
+
+  /edit:
+   
+    get:
+      tags:
+        - Blogs
+      description: '点击博客界面编辑按钮，进入编辑界面'
+      operationId: getEditView
+     
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/EditHtml" 
+    post:        
+      tags:
+        - Blogs
+      description: '用户编辑内容，添加至博客页面'
+      operationId: addBlog
+      requestBody:
+        required: true
+        content:
+          text/json: 
+            schema:
+              type: "object"
+              properties:
+                username:
+                  type: "string"
+                title:
+                  type: "string"
+                description:
+                  type: "string"
+                article:
+                  type: "string"
       responses:
         '200':
           description: OK
@@ -125,23 +157,98 @@ paths:
               schema:
                 $ref: "#/components/schemas/Blog"
 
-  
+  /delete:
+    get:
+      tags:
+        - Blogs
+      description: '删除blog所选信息，返回新的blog页面'
+      operationId: deleteBlog
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+                type: "object"
+                properties:
+                
+                  blogId:
+                    type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/BlogHtml"
+
+  /update:
+    get:
+      tags:
+        - Blogs
+      description: '返回修改页面'
+      operationId: updateBlog
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+                type: "object"
+                properties:                 
+                  blogId:
+                    type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/UpdateHtml"
+    post:
+      tags:
+        - Blogs
+      description: '修改已添加的信息,后然返回blog页面'
+      operationId: updateBlog
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+              type: "object"
+              properties:
+                  username:
+                    type: "string"
+                  title:
+                    type: "string"
+                  description:
+                    type: "string"
+                  article:
+                    type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/Blog"               
+
 
     
     
 components:
   schemas:
-    SetUpHtml:
+    RegisterHtml:
       type: "string"
-    SetUp:
+      example: "register.html" 
+    Register:
       type: "object"
       properties:    
         view:
           type: "string" 
-          
+         
     
     LoginHtml:
       type: "string"
+      example: "Login.html" 
     Login:
       type: "object"
       properties:
@@ -151,21 +258,61 @@ components:
           type: "string"
 
     BlogHtml:
-      type: "string"
+      type: "object"        
+      properties:
+        username:
+          type: "string"
+        blogs:
+          type: array
+          items:
+            $ref: "#/components/schemas/Blog"
+        view:
+          type: "string"
+          example: "blog.html"   
     Blog:
       type: "object"
       properties:
         username:
+          type: "string"              
+        title:
+          type: "string"        
+        description:
+          type: "string"  
+        artcle:
           type: "string"
         view:
-          type: "string"      
+          type: "string"  
+          example: "**个人博客"
+             
 
-    BlogEditorHtml:
-      type: "string"
-    BlogEditor:
+    EditHtml:
+     type: "object"        
+     properties:
+      username:
+        type: "string"
+      blogs:
+        type: array
+        items:
+          $ref: "#/components/schemas/Edit"
+      view:
+        type: "string"
+        example: "edit.html"   
+    Edit:
       type: "object"
-      properties:
+      properties:       
+        view:
+          type: "string"
+      
+    UpdateHtml:
+      type: "object"
+      properties:  
         username:
           type: "string"
+        blog:
+          type: "object"
+          items:
+            $ref: "#/components/schemas/Blog"
         view:
-          type: "string"     
+          type: "string"
+          example: "update.html"   
+ 
