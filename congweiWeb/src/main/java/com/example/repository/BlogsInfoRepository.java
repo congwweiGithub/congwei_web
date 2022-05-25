@@ -8,7 +8,8 @@ import com.example.model.BlogsInfo;
 @Repository
 public interface BlogsInfoRepository extends JpaRepository<BlogsInfo,Long> {
 
-	BlogsInfo findByBlogId(Long blogId);
+	BlogsInfo findByBlogId(Long blogId);		
+	
 }
 
 

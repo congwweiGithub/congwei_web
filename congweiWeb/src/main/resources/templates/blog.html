@@ -80,7 +80,7 @@
 						<!--		<a th:href="@{/update}"> 修改 </a>-->
 								</button>
 								<button type="button" class="btn btn-default">
-									<a th:href="|/update?blogId=${blogId}|"> 删除 </a>
+									<a th:href="@{/delete(blogId=*{blogId})}"> 删除 </a>
 								</button>
 							</div>
 						</span>

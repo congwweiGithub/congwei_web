@@ -39,10 +39,11 @@
 	</head>
 
 	<body>
-		<div>
-			<input type="hidden" name="blogId" th:value="blogId">
-			<form action="/update" method="POST">
+		<div>			
+			<form action="/update" method="POST">			
+			<input type="hidden" name="username" th:value="${username}">
 				<div class="alter" th:object="${blog}">
+				<input type="hidden" name="blogId" th:value="*{blogId}">
 					<label for="title" class="show" align="left">Title:</label>
 					<textarea class="updates"  name="title" th:text="*{title}"></textarea><br>
 					<label for="description" class="show" align="left">describe:</label>

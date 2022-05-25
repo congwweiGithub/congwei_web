@@ -23,7 +23,7 @@ public class BlogsInfo {
 		private String 	title;
 		private String 	description;
 		private String  article;
-
+		private String 	username;
 	
 }
 
