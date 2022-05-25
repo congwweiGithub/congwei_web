@@ -205,8 +205,8 @@ paths:
                 $ref: "#/components/schemas/UpdateHtml"
     post:
       tags:
-        - blogs
-      description: '接受用户输入更新的信息,并返回blog页面'
+        - Blogs
+      description: '修改已添加的信息,后然返回blog页面'
       operationId: updateBlog
       requestBody:
         required: true
@@ -215,21 +215,21 @@ paths:
             schema:
               type: "object"
               properties:
-                username:
-                  type: "string"
-                blogId:
-                  type: "string"
-                title:
-                  type: "string"
-                content:
-                  type: "string"
+                  username:
+                    type: "string"
+                  title:
+                    type: "string"
+                  description:
+                    type: "string"
+                  article:
+                    type: "string"
       responses:
         '200':
           description: OK
           content:
             text/html:    
               schema:
-                $ref: "#/components/schemas/BlogHtml"                
+                $ref: "#/components/schemas/Blog"               
 
 
     
@@ -286,9 +286,33 @@ components:
              
 
     EditHtml:
-      type: "string"
+     type: "object"        
+     properties:
+      username:
+        type: "string"
+      blogs:
+        type: array
+        items:
+          $ref: "#/components/schemas/Edit"
+      view:
+        type: "string"
+        example: "edit.html"   
     Edit:
       type: "object"
+      properties:       
+        view:
+          type: "string"
       
-       
+    UpdateHtml:
+      type: "object"
+      properties:  
+        username:
+          type: "string"
+        blog:
+          type: "object"
+          items:
+            $ref: "#/components/schemas/Blog"
+        view:
+          type: "string"
+          example: "update.html"   
  
