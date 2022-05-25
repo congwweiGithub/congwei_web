@@ -21,8 +21,8 @@ public class BlogsController {
 
 	@GetMapping("/edit")
 	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
-	public ModelAndView getEditView(
-			String username, 
+	public ModelAndView getEditView(//
+			String username, //
 			ModelAndView mv) {
 			mv.addObject("username",username);
 			mv.setViewName("edit");
@@ -40,25 +40,29 @@ public class BlogsController {
 
 	@GetMapping("/update") // 此操作在register中进
 	public ModelAndView updateBlog( //
+			String username,//
 			Long blogId, //
 			ModelAndView mv) {
 //     	System.out.println("00000000000"+blogId);
 		BlogsInfo blogsInfo = blogsInfoRepository.findByBlogId(blogId);
 //		System.out.println("222222222222222"+blogsInfo.getTitle() );
 //		mv.addObject("title",blogsInfo.getTitle() ); blog里包括所有内容，不需要额外添加title等内容了
-		mv.addObject("blog", blogsInfo);
+		mv.addObject("blog", blogsInfo);		
+		mv.addObject("username", username);
 		mv.setViewName("update");
 		return mv; // 返回值是mv，才能显示在屏幕上
 	}
 
 	@GetMapping("/delete") // 此操作在register中进
 	public ModelAndView deleteBlog( //
+			String username,//
 			Long blogId, //
 			ModelAndView mv) {
 		BlogsInfo blogsInfo = blogsInfoRepository.findByBlogId(blogId);
 		System.out.println(blogId);
 		System.out.println(blogsInfo);
 		blogsInfoRepository.delete(blogsInfo);
+		mv.addObject("username", username);
 		mv.setViewName("redirect:/blog");
 		return mv; // 返回值是mv，才能显示在屏幕上
 	}
@@ -97,7 +101,7 @@ public class BlogsController {
 			@RequestParam("title") String title, //
 			@RequestParam("description") String description, //
 			@RequestParam("article") String article, //
-			String username,//
+			@RequestParam("username") String username,//
 			@RequestParam("blogId") Long blogId, ModelAndView mv) {
 
 		if (title.isEmpty() || description.isEmpty() //
@@ -107,15 +111,10 @@ public class BlogsController {
 			BlogsInfo blogsInfo = blogsInfoRepository.findByBlogId(blogId);
 			blogsInfo.setTitle(title);
 			blogsInfo.setDescription(description);
-			blogsInfo.setArticle(article);
-//			blogsInfo = BlogsInfo.builder()//
-//					.title(title)//
-//					.description(description)//
-//					.article(article)//
-//					.build();
+			blogsInfo.setArticle(article);		
 			blogsInfoRepository.save(blogsInfo);
 			System.out.println("99999999999999" + blogsInfo.getTitle());
-			mv.addObject("username", "熊大");
+			mv.addObject("username", username);
 //			mv.addObject("blogId", blogId);
 			mv.setViewName("redirect:/blog");
 
@@ -129,17 +128,17 @@ public class BlogsController {
 //			@RequestParam("blogId") Long blogId, 
 			ModelAndView mv) {
 		List<BlogsInfo> blogs = blogsInfoRepository.findAll();
-//		List<BlogsInfo> blog = new ArrayList<>();
-//		for(BlogsInfo b:blogs) {
-//			if(b.getUsername().equals(username)) {
-//				blog.add(b);
-//			}
-//		}
+		List<BlogsInfo> blog = new ArrayList<>();
+		for(BlogsInfo b:blogs) {
+			if(b.getUsername().equals(username)) {
+				blog.add(b);
+			}
+		}
 		System.out.println("1111111111111111");
 		mv.addObject("username", username);
 //		mv.addObject("blogId", blogId);
-//		mv.addObject("blogs", blog);
-		mv.addObject("blogs", blogs);
+		mv.addObject("blogs", blog);
+//		mv.addObject("blogs", blogs);
 		mv.setViewName("blog");
 
 		return mv;
