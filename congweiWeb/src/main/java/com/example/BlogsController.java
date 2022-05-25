@@ -60,7 +60,7 @@ public class BlogsController {
 	}
 
 	@PostMapping("/edit") // 此操作在register中进行
-	public ModelAndView blog(//
+	public ModelAndView addBlog(//
 			@RequestParam("title") String title, //
 			@RequestParam("description") String description, //
 			@RequestParam("article") String article, //

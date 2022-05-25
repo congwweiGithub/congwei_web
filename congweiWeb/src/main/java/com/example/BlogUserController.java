@@ -18,7 +18,7 @@ public class BlogUserController {
 	
 
 	@GetMapping("/register")
-	public String getSetUpView() {
+	public String getRegisterView() {
 
 		return "register";
 	}
