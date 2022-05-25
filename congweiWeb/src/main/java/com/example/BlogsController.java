@@ -32,26 +32,7 @@ public class BlogsController {
 		return "lastPage";
 	}
 
-	@GetMapping("/blog")
-	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
-	public ModelAndView getBlogView( String username, //
-//			@RequestParam("blogId") Long blogId, 
-			ModelAndView mv) {
-		List<BlogsInfo> blogs = blogsInfoRepository.findAll();
-		List<BlogsInfo> blog = new ArrayList<>();
-		for(BlogsInfo b:blogs) {
-			if(b.getUsername().equals(username)) {
-				blog.add(b);
-			}
-		}
-		System.out.println("1111111111111111");
-		mv.addObject("username", "熊大");
-//		mv.addObject("blogId", blogId);
-		mv.addObject("blogs", blog);
-		mv.setViewName("blog");
-
-		return mv;
-	}
+	
 
 	@GetMapping("/update") // 此操作在register中进
 	public ModelAndView updateBlog( //
@@ -83,7 +64,7 @@ public class BlogsController {
 			@RequestParam("title") String title, //
 			@RequestParam("description") String description, //
 			@RequestParam("article") String article, //
-			@RequestParam("username") String username,
+//			String username,
 //			@RequestParam("blog_Id") Long blogId, 
 			ModelAndView mv) {
 
@@ -95,11 +76,11 @@ public class BlogsController {
 					.title(title)//
 					.description(description)//
 					.article(article)//
-					.username(username)
+//					.username(username)
 					.build();
 			blogsInfoRepository.save(blogsInfo);
 			mv.addObject("title", blogsInfo.getTitle());
-			mv.addObject("username", username);
+//			mv.addObject("username", "熊大");
 //			mv.addObject("blogId", blogId);
 			mv.setViewName("redirect:/blog");
 
@@ -137,5 +118,27 @@ public class BlogsController {
 		}
 		return mv;
 	}
+	
+	@GetMapping("/blog")
+	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
+	public ModelAndView getBlogView( String username, //
+//			@RequestParam("blogId") Long blogId, 
+			ModelAndView mv) {
+		List<BlogsInfo> blogs = blogsInfoRepository.findAll();
+//		List<BlogsInfo> blog = new ArrayList<>();
+//		for(BlogsInfo b:blogs) {
+//			if(b.getUsername().equals(username)) {
+//				blog.add(b);
+//			}
+//		}
+		System.out.println("1111111111111111");
+		mv.addObject("username", "熊大");
+//		mv.addObject("blogId", blogId);
+//		mv.addObject("blogs", blog);
+		mv.addObject("blogs", blogs);
+		mv.setViewName("blog");
 
+		return mv;
+	}
+	
 }
