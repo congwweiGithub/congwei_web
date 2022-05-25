@@ -1,0 +1,59 @@
+<input!DOCTYPT>
+	<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="web.css">
+		<h1 align="center">Blog Editor</h1>
+		<style>
+			div {
+				position: absolute;
+				top: 10%;
+				left: 20%;
+				margin-left: -50px;
+				margin-top: 0px;
+			}
+
+			
+
+			textarea.updates {
+				width: 800px;
+				height: 50px;
+				vertical-align: left;
+				margin-left: 0px;
+				border: none;
+				background-color: rgb(192, 192, 192, 0.5);			
+			}
+
+			label.show{
+				font-family:'仿宋';font-size:22px;
+				margin-top:15px;
+			}
+			#update {
+				width: 500px;
+				height:30px;
+				margin-top: 300px;
+				margin-left:250px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<input type="hidden" name="blogId" th:value="blogId">
+			<form action="/update" method="POST">
+				<div class="alter" th:object="${blog}">
+					<label for="title" class="show" align="left">Title:</label>
+					<textarea class="updates"  name="title" th:text="*{title}"></textarea><br>
+					<label for="description" class="show" align="left">describe:</label>
+					<textarea class="updates" name="description" th:text="*{description}"></textarea><br>
+					<label for="article" class="show" align="left">Edit:</label>
+					<textarea class="updates" name="article" th:text="*{article}"></textarea><br>
+				</div>
+				<input type="submit" id="update" name="update" placeholder="Push"></input>
+			</form>
+		</div>
+		</div>
+	</body>
+
+	</html>

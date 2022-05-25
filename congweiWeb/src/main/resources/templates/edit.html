@@ -25,7 +25,6 @@
 				vertical-align: top;
 				border:none;
 				background-color: rgb(192, 192, 192, 0.5);
-
 			}
 			
 		#push {
@@ -33,25 +32,22 @@
 			margin-top:20px;
 			margin-left:20%;
 		}
-
-			
 			
 		</style>
 	</head>
 
 	<body>
-		<div>
-			<form action="/edit" method="POST">
+		<div>		
+			<form action="/edit" method="POST">		
+				<input type="hidden" name="username" th:value="${username}">		
 				<label for="title" style=" font-family:'仿宋';font-size:26px;" align="left">Title:</label>
-				<input type="text" class="describe" name="title" placeholder="Enter Week's No.&title..."></input><br>
+				<input type="text" class="describe" name="title" placeholder="add a title..."></input><br>
 				<label for="description" style=" font-family:'仿宋';font-size:15px;"
 				align="left">&ensp;describe:</label>
-				<input type="text" class="describe" name="description" placeholder="Enter title"></input><br>
+				<input type="text" class="describe" name="description" placeholder="add some describption..."></input><br>
 				<label for="article" style=" font-family:'仿宋';font-size:22px;" align="left">&ensp;&ensp;Edit:</label>
-				<textarea name="article" class="editor" placeholder="Enter main point..."></textarea><br>
-			 	<input type="submit" id="push" name="push" placeholder="Push"></input>
-			
-			</div>
+				<textarea name="article" class="editor" placeholder="add something..."></textarea><br>
+			 	<input type="submit" id="push" name="push" placeholder="Push"></input>						
 			</form>
 			
 		</div>

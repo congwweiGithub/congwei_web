@@ -37,7 +37,7 @@ public class BlogUserController {
 			@RequestParam("rpw") String repassword, //
 			ModelAndView mv) {
 	
-		if (username.length() < 3 || password.length() < 6 //
+		if (username.length() < 2 || password.length() < 6 //
 				|| !repassword.equals(password)) { //
 			mv.setViewName("loginFailed");
 		} else {

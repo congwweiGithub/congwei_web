@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 public class BlogsInfo {
 				
 		@Id
-		@GeneratedValue(strategy = GenerationType.AUTO)		
-		private Long blogId;
-		private String title;
-		private String description;
+		@GeneratedValue(strategy = GenerationType.IDENTITY)		
+		private Long 	blogId;
+		private String 	title;
+		private String 	description;
 		private String  article;
 
 	

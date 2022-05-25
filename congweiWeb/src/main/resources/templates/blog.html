@@ -68,17 +68,19 @@
 				<div class="col-sm-9 first-row">
 					<h3 style="color:rgb(128, 128, 128,0.8)">博客一览</h3>
 					<div th:each="blog:${blogs}" th:object="${blog}">
+						<input type="hidden" name="blogId" th:value="blogId">
 						<h2 th:text="*{title}" style=" font-family:'仿宋';text-align:left;margin-top:10px"></h2>
 						<pre th:text="*{description}" style=" font-family:'仿宋';font-size:15px;text-align:left"> </pre>
 						<pre th:text="*{article}" style=" font-family:'仿宋';font-size:20px;text-align:left">
-						</pre>
+						</pre>	
 						<span>
 							<div class="btn-group" style="margin-left:-1300px;">
 								<button type="button" class="btn btn-default">
-									<a th:href="@{/edit/{blogId}(blogId=*{blogId})}"> 修改 </a>
+									<a th:href="@{/update(blogId=*{blogId})}"> 修改 </a>
+						<!--		<a th:href="@{/update}"> 修改 </a>-->
 								</button>
 								<button type="button" class="btn btn-default">
-									<a href="/edit"> 删除 </a>
+									<a th:href="|/update?blogId=${blogId}|"> 删除 </a>
 								</button>
 							</div>
 						</span>
@@ -101,10 +103,10 @@
 							<a href="/lastPage">尾 页</a>
 						</button>
 					</div>
-					
+
 					<div class="btn-group">
 						<button type="button" class="btn btn-default" style="margin-left: 30px">
-							<a  th:href="|/edit?username=${username}|">编 辑</a> 
+							<a th:href="|/edit?username=${username}|">编 辑</a>
 						</button>
 					</div>
 
