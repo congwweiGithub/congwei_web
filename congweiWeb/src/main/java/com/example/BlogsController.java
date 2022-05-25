@@ -21,8 +21,12 @@ public class BlogsController {
 
 	@GetMapping("/edit")
 	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
-	public String getEditView() {
-		return "edit";
+	public ModelAndView getEditView(
+			String username, 
+			ModelAndView mv) {
+			mv.addObject("username",username);
+			mv.setViewName("edit");
+		return mv;
 	}
 
 	@GetMapping("/lastPage")
@@ -64,7 +68,7 @@ public class BlogsController {
 			@RequestParam("title") String title, //
 			@RequestParam("description") String description, //
 			@RequestParam("article") String article, //
-//			String username,
+			@RequestParam("username") String username,
 //			@RequestParam("blog_Id") Long blogId, 
 			ModelAndView mv) {
 
@@ -76,11 +80,11 @@ public class BlogsController {
 					.title(title)//
 					.description(description)//
 					.article(article)//
-//					.username(username)
+					.username(username)
 					.build();
 			blogsInfoRepository.save(blogsInfo);
-			mv.addObject("title", blogsInfo.getTitle());
-//			mv.addObject("username", "熊大");
+//			mv.addObject("username", blogsInfo.getTitle());
+			mv.addObject("username", username);
 //			mv.addObject("blogId", blogId);
 			mv.setViewName("redirect:/blog");
 
@@ -132,7 +136,7 @@ public class BlogsController {
 //			}
 //		}
 		System.out.println("1111111111111111");
-		mv.addObject("username", "熊大");
+		mv.addObject("username", username);
 //		mv.addObject("blogId", blogId);
 //		mv.addObject("blogs", blog);
 		mv.addObject("blogs", blogs);
