@@ -4,7 +4,7 @@ info:
   description: this is a blogs system for my first project
   version: '1.0'
 servers:
-  - url: https://localhost:8081
+  - url: http://localhost:8081
 paths:
   
   /login:
@@ -45,19 +45,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/Blog"            
     
-  /setup:
+  /register:
     get:
       tags:
         - Users
       description: '没有用户点击注册按钮，进入登陆界面'
-      operationId: getSetUPView
+      operationId: getRegisterView
       responses:
         '200':
           description: OK
           content:
             text/html:    
               schema:
-                $ref: "#/components/schemas/SetUpHtml"
+                $ref: "#/components/schemas/RegisterHtml"
 
     post:
       tags:
@@ -114,13 +114,13 @@ paths:
                 $ref: "#/components/schemas/BlogHtml"    
     
 
-  /blogEditor:
+  /edit:
    
     get:
       tags:
         - Blogs
       description: '点击博客界面编辑按钮，进入编辑界面'
-      operationId: getBlogEditorView
+      operationId: getEditView
      
       responses:
         '200':
@@ -128,12 +128,12 @@ paths:
           content:
             text/html:    
               schema:
-                $ref: "#/components/schemas/BlogEditorHtml" 
+                $ref: "#/components/schemas/EditHtml" 
     post:        
       tags:
         - Blogs
       description: '用户编辑内容，添加至博客页面'
-      operationId: blog
+      operationId: addBlog
       requestBody:
         required: true
         content:
@@ -143,7 +143,11 @@ paths:
               properties:
                 username:
                   type: "string"
-                password:
+                title:
+                  type: "string"
+                description:
+                  type: "string"
+                article:
                   type: "string"
       responses:
         '200':
@@ -153,16 +157,89 @@ paths:
               schema:
                 $ref: "#/components/schemas/Blog"
 
-  
+  /delete:
+    get:
+      tags:
+        - Blogs
+      description: '删除blog所选信息，返回新的blog页面'
+      operationId: deleteBlog
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+                type: "object"
+                properties:
+                
+                  blogId:
+                    type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/BlogHtml"
+
+  /update:
+    get:
+      tags:
+        - Blogs
+      description: '返回修改页面'
+      operationId: updateBlog
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+                type: "object"
+                properties:                 
+                  blogId:
+                    type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/UpdateHtml"
+    post:
+      tags:
+        - blogs
+      description: '接受用户输入更新的信息,并返回blog页面'
+      operationId: updateBlog
+      requestBody:
+        required: true
+        content:
+          text/json:
+            schema:
+              type: "object"
+              properties:
+                username:
+                  type: "string"
+                blogId:
+                  type: "string"
+                title:
+                  type: "string"
+                content:
+                  type: "string"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:    
+              schema:
+                $ref: "#/components/schemas/BlogHtml"                
+
 
     
     
 components:
   schemas:
-    SetUpHtml:
+    RegisterHtml:
       type: "string"
-      example: "setUp.html" 
-    SetUp:
+      example: "register.html" 
+    Register:
       type: "object"
       properties:    
         view:
@@ -198,17 +275,19 @@ components:
         username:
           type: "string"              
         title:
-          type: "string"
+          type: "string"        
+        description:
+          type: "string"  
         artcle:
           type: "string"
         view:
           type: "string"  
-          example: "**的博客主页"
+          example: "**个人博客"
              
 
-    BlogEditorHtml:
+    EditHtml:
       type: "string"
-    BlogEditor:
+    Edit:
       type: "object"
       
        
