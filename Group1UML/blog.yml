@@ -24,7 +24,7 @@ paths:
     post:
       tags:
         - Users
-      description: '接受用户登陆信息，信息匹配成功进入博客界面'
+      description: '接受用户登陆信息，信息匹配成功进入博客界面,信息不匹配进入Failed页面'
       operationId: blog
       requestBody:
         required: true
@@ -62,7 +62,7 @@ paths:
     post:
       tags:
         - Users
-      description: '接受用户注册信息,注册成功进入登录界面'
+      description: '接受用户注册信息,注册成功进入登录界面,输入信息有误进入Failed页面'
       operationId: login
       requestBody:
         required: true
@@ -132,7 +132,7 @@ paths:
     post:        
       tags:
         - Blogs
-      description: '用户编辑内容，添加至博客页面'
+      description: '用户编辑内容，添加至博客页面，输入内容与要求不符进入editFailed页面'
       operationId: addBlog
       requestBody:
         required: true
@@ -170,7 +170,8 @@ paths:
             schema:
                 type: "object"
                 properties:
-                
+                  username:
+                    type: "string"
                   blogId:
                     type: "string"
       responses:
@@ -193,7 +194,9 @@ paths:
           text/json:
             schema:
                 type: "object"
-                properties:                 
+                properties:  
+                  username:
+                    type: "string"               
                   blogId:
                     type: "string"
       responses:
@@ -252,8 +255,7 @@ components:
     Login:
       type: "object"
       properties:
-        username:
-          type: "string"
+    
         view:
           type: "string"
 
@@ -307,11 +309,7 @@ components:
       type: "object"
       properties:  
         username:
-          type: "string"
-        blog:
-          type: "object"
-          items:
-            $ref: "#/components/schemas/Blog"
+          type: "string"          
         view:
           type: "string"
           example: "update.html"   
