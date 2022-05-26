@@ -1,18 +1,18 @@
 # congwei_web
 个人博客
 1.前端代码文件
-a.login.html                      （完  成）
-b.register.html                   （完  成）
-c.blog.html                       （待完善） （刚刚添加修改删除按钮，功能动作还没实现，目前点击修改按钮可以进入update.html界面并在页面显示需修改的内容）
-d.edit.html                       （待修改） （目前更新及删除功能编写中）
+a.login.html                      （待完善）  (a~d & g bootstrap有待完善）
+b.register.html                   （待完善）
+c.blog.html                       （待完善） 
+d.edit.html                       （待完善）
 e.lastPage.html                   （待修改） （暂未实现翻页功能）
-f.logFailed.html                  （完  成）
+f.Failed.html                     （待完善） （进入界面后需手动点击网页自带的返回上一页按钮）
 g.update.html                     （待完善）
 h.web.css                         （完  成） 
 
 后端代码文件
-a.BlogUserController.java         （完  成）（已实现账户的创建和登陆）
-b.BlogUserController.java         （编写中）（删除功能及修改的post方法暂未完成）
+a.BlogUserController.java         （待完善）（统一账户可重复创建）
+b.BlogUserController.java         （待完善）（没有账户也可以无账户进入博客界面进行新增、更新、删除等操作）
 c.BlogUserInfo.java               （完  成） 
 d.BlogsInfo.java                  （完  成） 
 e.BlogUserInfoRepository.java     （完  成）
