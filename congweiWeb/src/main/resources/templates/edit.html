@@ -4,17 +4,17 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="web.css">
-		<h1 align="center">Blog Editor</h1>
+		<h1 align="center">博客 编辑</h1>
 		<style>
 			div {
 				position: absolute;
 				top: 10%;
-				left: 20%;
-				margin-left: 0px;
+				left: 20%;				
 				margin-top: 0px;
 			}
 
 			input.describe {
+				margin-left: 0px;
 				width: 800px;
 				height: auto;
 			}
@@ -30,8 +30,9 @@
 		#push {
 			width:60%;
 			margin-top:20px;
-			margin-left:20%;
+			margin-left:23%;
 		}
+	
 			
 		</style>
 	</head>
@@ -40,12 +41,12 @@
 		<div>		
 			<form action="/edit" method="POST">		
 				<input type="hidden" name="username" th:value="${username}">		
-				<label for="title" style=" font-family:'仿宋';font-size:26px;" align="left">Title:</label>
+				<label for="title" style=" font-family:'仿宋';font-size:26px" align="left">标题:</label>
 				<input type="text" class="describe" name="title" placeholder="add a title..."></input><br>
-				<label for="description" style=" font-family:'仿宋';font-size:15px;"
-				align="left">&ensp;describe:</label>
+				<label for="description" style=" font-family:'仿宋';font-size:15px;margin-left:26px"
+				align="left">简介:</label>
 				<input type="text" class="describe" name="description" placeholder="add some describption..."></input><br>
-				<label for="article" style=" font-family:'仿宋';font-size:22px;" align="left">&ensp;&ensp;Edit:</label>
+				<label for="article" style=" font-family:'仿宋';font-size:22px;margin-left:-35px" align="left">内容编辑:</label>
 				<textarea name="article" class="editor" placeholder="add something..."></textarea><br>
 			 	<input type="submit" id="push" name="push" placeholder="Push"></input>						
 			</form>

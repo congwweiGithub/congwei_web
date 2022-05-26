@@ -16,7 +16,6 @@ public class BlogUserController {
 	@Autowired
 	private BlogUserInfoRepository bloguserInfoRepository;
 	
-
 	@GetMapping("/register")
 	public String getRegisterView() {
 
@@ -24,7 +23,6 @@ public class BlogUserController {
 	}
 
 	@GetMapping("/login")
-	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
 	public String getLoginView() {
 
 		return "login";
@@ -39,7 +37,7 @@ public class BlogUserController {
 	
 		if (username.length() < 2 || password.length() < 6 //
 				|| !repassword.equals(password)) { //
-			mv.setViewName("loginFailed");
+			mv.setViewName("Failed");
 		} else {
 			BlogUserInfo bloguserInfo = BlogUserInfo.builder()// 
 					.username(username)//
@@ -47,6 +45,7 @@ public class BlogUserController {
 			bloguserInfoRepository.save(bloguserInfo);
 			mv.addObject("username", bloguserInfo.getUsername());
 			mv.setViewName("redirect:/login");
+			System.err.println("注册成功");
 		}
 		return mv;
 	}
@@ -56,16 +55,13 @@ public class BlogUserController {
 			@RequestParam("username") String username, //
 			@RequestParam("password") String password, //
 			ModelAndView mv) {
-
 		mv.addObject("username", username);
-		BlogUserInfo userInfo = bloguserInfoRepository.findByUsername(username);
-
-		if (userInfo != null && password.equals(userInfo.getPassword())) {
+		BlogUserInfo bloguserInfo = bloguserInfoRepository.findByUsername(username);
+		if (bloguserInfo != null && password.equals(bloguserInfo.getPassword())) {
 			mv.setViewName("redirect:/blog");	
-			
-			
+			System.out.println("登陆成功");
 		} else {
-			mv.setViewName("loginFailed");
+			mv.setViewName("Failed");
 		}
 
 		return mv;

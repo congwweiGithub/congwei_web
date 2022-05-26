@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="web.css">
-		<h1 align="center">Blog Editor</h1>
+		<h1 align="center">博客 更新</h1>
 		<style>
 			div {
 				position: absolute;
@@ -13,8 +13,6 @@
 				margin-left: -50px;
 				margin-top: 0px;
 			}
-
-			
 
 			textarea.updates {
 				width: 800px;
@@ -29,6 +27,7 @@
 				font-family:'仿宋';font-size:22px;
 				margin-top:15px;
 			}
+			
 			#update {
 				width: 500px;
 				height:30px;
@@ -44,11 +43,11 @@
 			<input type="hidden" name="username" th:value="${username}">
 				<div class="alter" th:object="${blog}">
 				<input type="hidden" name="blogId" th:value="*{blogId}">
-					<label for="title" class="show" align="left">Title:</label>
+					<label for="title" class="show" align="left">标题:</label>
 					<textarea class="updates"  name="title" th:text="*{title}"></textarea><br>
-					<label for="description" class="show" align="left">describe:</label>
+					<label for="description" class="show" align="left">简介:</label>
 					<textarea class="updates" name="description" th:text="*{description}"></textarea><br>
-					<label for="article" class="show" align="left">Edit:</label>
+					<label for="article" class="show" align="left">内容编辑:</label>
 					<textarea class="updates" name="article" th:text="*{article}"></textarea><br>
 				</div>
 				<input type="submit" id="update" name="update" placeholder="Push"></input>

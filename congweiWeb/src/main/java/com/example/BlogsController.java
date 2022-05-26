@@ -19,18 +19,17 @@ public class BlogsController {
 	@Autowired
 	private BlogsInfoRepository blogsInfoRepository;
 
-	@GetMapping("/edit")
-	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
+	@GetMapping("/edit")	
 	public ModelAndView getEditView(//
 			String username, //
 			ModelAndView mv) {
 			mv.addObject("username",username);
 			mv.setViewName("edit");
+			System.out.println("进入编辑界面");
 		return mv;
 	}
 
-	@GetMapping("/lastPage")
-	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
+	@GetMapping("/lastPage")	
 	public String getLastPage() {
 
 		return "lastPage";
@@ -43,37 +42,33 @@ public class BlogsController {
 			String username,//
 			Long blogId, //
 			ModelAndView mv) {
-//     	System.out.println("00000000000"+blogId);
 		BlogsInfo blogsInfo = blogsInfoRepository.findByBlogId(blogId);
-//		System.out.println("222222222222222"+blogsInfo.getTitle() );
-//		mv.addObject("title",blogsInfo.getTitle() ); blog里包括所有内容，不需要额外添加title等内容了
 		mv.addObject("blog", blogsInfo);		
 		mv.addObject("username", username);
 		mv.setViewName("update");
-		return mv; // 返回值是mv，才能显示在屏幕上
+		System.out.println("进入更新界面");
+		return mv; 
 	}
 
-	@GetMapping("/delete") // 此操作在register中进
+	@GetMapping("/delete") 
 	public ModelAndView deleteBlog( //
 			String username,//
 			Long blogId, //
 			ModelAndView mv) {
-		BlogsInfo blogsInfo = blogsInfoRepository.findByBlogId(blogId);
-		System.out.println(blogId);
-		System.out.println(blogsInfo);
+		BlogsInfo blogsInfo = blogsInfoRepository.findByBlogId(blogId);		
 		blogsInfoRepository.delete(blogsInfo);
 		mv.addObject("username", username);
 		mv.setViewName("redirect:/blog");
-		return mv; // 返回值是mv，才能显示在屏幕上
+		System.out.println("已执行删除操作");
+		return mv; 
 	}
 
-	@PostMapping("/edit") // 此操作在register中进行
+	@PostMapping("/edit") 
 	public ModelAndView addBlog(//
 			@RequestParam("title") String title, //
 			@RequestParam("description") String description, //
 			@RequestParam("article") String article, //
 			@RequestParam("username") String username,
-//			@RequestParam("blog_Id") Long blogId, 
 			ModelAndView mv) {
 
 		if (title.isEmpty() || description.isEmpty() //
@@ -87,16 +82,14 @@ public class BlogsController {
 					.username(username)
 					.build();
 			blogsInfoRepository.save(blogsInfo);
-//			mv.addObject("username", blogsInfo.getTitle());
 			mv.addObject("username", username);
-//			mv.addObject("blogId", blogId);
 			mv.setViewName("redirect:/blog");
-
+			System.out.println("新增内容成功");
 		}
 		return mv;
 	}
 
-	@PostMapping("/update") // 此操作在register中进行
+	@PostMapping("/update") 
 	public ModelAndView update(//
 			@RequestParam("title") String title, //
 			@RequestParam("description") String description, //
@@ -113,34 +106,29 @@ public class BlogsController {
 			blogsInfo.setDescription(description);
 			blogsInfo.setArticle(article);		
 			blogsInfoRepository.save(blogsInfo);
-			System.out.println("99999999999999" + blogsInfo.getTitle());
 			mv.addObject("username", username);
-//			mv.addObject("blogId", blogId);
 			mv.setViewName("redirect:/blog");
-
+			System.out.println("更新内容成功");
 		}
 		return mv;
 	}
 	
-	@GetMapping("/blog")
-	// <a>超链接 GetMppping()方法 超链接写成这样 <a href="/login">signin</a>
-	public ModelAndView getBlogView( String username, //
-//			@RequestParam("blogId") Long blogId, 
+	@GetMapping("/blog")	
+	public ModelAndView getBlogView( //
+			String username, //
 			ModelAndView mv) {
 		List<BlogsInfo> blogs = blogsInfoRepository.findAll();
-		List<BlogsInfo> blog = new ArrayList<>();
-		for(BlogsInfo b:blogs) {
-			if(b.getUsername().equals(username)) {
-				blog.add(b);
-			}
-		}
-		System.out.println("1111111111111111");
+				List<BlogsInfo> blog = new ArrayList<>();
+		
+				for(BlogsInfo b:blogs) {			
+					if(b.getUsername().equals(username)) {
+						blog.add(b);
+					}
+				}
 		mv.addObject("username", username);
-//		mv.addObject("blogId", blogId);
 		mv.addObject("blogs", blog);
-//		mv.addObject("blogs", blogs);
 		mv.setViewName("blog");
-
+		System.out.println("进入"+username+"的博客页面");
 		return mv;
 	}
 	

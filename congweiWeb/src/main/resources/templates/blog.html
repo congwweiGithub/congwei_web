@@ -72,48 +72,50 @@
 						<h2 th:text="*{title}" style=" font-family:'仿宋';text-align:left;margin-top:10px"></h2>
 						<pre th:text="*{description}" style=" font-family:'仿宋';font-size:15px;text-align:left"> </pre>
 						<pre th:text="*{article}" style=" font-family:'仿宋';font-size:20px;text-align:left">
-						</pre>	
+						</pre>
 						<span>
 							<div class="btn-group" style="margin-left:-1300px;">
 								<button type="button" class="btn btn-default">
-									<a th:href="@{/update(blogId=*{blogId},username=${username})}"> 修改 </a>
-						<!--		<a th:href="@{/update}"> 修改 </a>-->
+									<a th:href="@{/update(blogId=*{blogId},username=${username})}"> 更 新 </a>
+									<!--		<a th:href="@{/update}"> 修改 </a>-->
 								</button>
 								<button type="button" class="btn btn-default">
-									<a th:href="@{/delete(blogId=*{blogId},username=${username})}"> 删除 </a>
+									<a th:href="@{/delete(blogId=*{blogId},username=${username})}"> 删 除 </a>
 								</button>
 							</div>
 						</span>
 					</div>
-
+				</div>
+			</div>
+			<div class="btn-toolbar" role="toolbar">
+				<div class="btn-group">
+					<button type="button" class="btn btn-default">
+						<a th:href="@{/blog(username=${username})}">首 页</a>
+					</button>
+					<button type="button" class="btn btn-default">
+						<a th:href="@{/blog(username=${username})}">上一页</a>
+					</button>
+					<button type="button" class="btn btn-default">
+						<a href="/lastPage">下一页</a>
+					</button>
+					<button type="button" class="btn btn-default">
+						<a href="/lastPage">尾 页</a>
+					</button>
 				</div>
 
-				<div class="btn-toolbar" role="toolbar">
-					<div class="btn-group">
-						<button type="button" class="btn btn-default">
-							<a th:href="@{/blog(username=${username})}">首 页</a>
-						</button>
-						<button type="button" class="btn btn-default">
-							<a th:href="@{/blog(username=${username})}">上一页</a>
-						</button>
-						<button type="button" class="btn btn-default">
-							<a href="/lastPage">下一页</a>
-						</button>
-						<button type="button" class="btn btn-default">
-							<a href="/lastPage">尾 页</a>
-						</button>
-					</div>
-
-					<div class="btn-group">
-						<button type="button" class="btn btn-default" style="margin-left: 30px">
-							<a th:href="@{/edit(username=${username})}">编 辑</a>
-						</button>       
-					</div>
-
-
-
+				<div class="btn-group">
+					<button type="button" class="btn btn-default" style="margin-left: 30px">
+						<a th:href="@{/edit(username=${username})}">新 增</a>
+					</button>
 				</div>
 
+				<div class="btn-group">
+					<button type="button" class="btn btn-default" style="margin-left: 30px">
+						<a href="/login">登 出</a>
+					</button>
+				</div>
+			</div>
+		</div>
 	</body>
 
 
