@@ -27,31 +27,31 @@ public class BlogUserController {
 
 		return "login";
 	}
-
+		
 	@PostMapping("/register")  //此操作在register中进行
-	public ModelAndView login(//
+	public ModelAndView register(//
 			@RequestParam("username") String username, //
 			@RequestParam("pw") String password, //
 			@RequestParam("rpw") String repassword, //
 			ModelAndView mv) {
 	
-		if (username.length() < 2 || password.length() < 6 //
-				|| !repassword.equals(password)) { //
-			mv.setViewName("Failed");
-		} else {
+		if (username.length() >= 2 && password.length() >= 6 //
+				&& repassword.equals(password)) { //
 			BlogUserInfo bloguserInfo = BlogUserInfo.builder()// 
 					.username(username)//
 					.password(password).build();
 			bloguserInfoRepository.save(bloguserInfo);
 			mv.addObject("username", bloguserInfo.getUsername());
-			mv.setViewName("redirect:/login");
+			mv.setViewName("login");
 			System.err.println("注册成功");
+		} else {			
+			mv.setViewName("Failed");
 		}
 		return mv;
 	}
 
 	@PostMapping("/login")//此操作在login中进行
-	public ModelAndView blog(//
+	public ModelAndView login(//
 			@RequestParam("username") String username, //
 			@RequestParam("password") String password, //
 			ModelAndView mv) {
