@@ -22,7 +22,7 @@ import com.example.repository.BlogUserInfoRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BlogUserInfoControllerTest {
+public class BlogUserControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	
@@ -220,71 +220,71 @@ public class BlogUserInfoControllerTest {
 		.andExpect(view().name("Failed"));
 	}
 	
-//	@Test
-//	public void  testLogin_Failed4() throws Exception{
-//		
-//		String username ="熊大";
-//		String password = "xd1234";
-//		BlogUserInfo blogUserInfo = BlogUserInfo.builder()//
-//				.username(username)//
-//				.password(password)//
-//				.build();
-//		
-//		when(blogUserInfoRepository.findByUsername(username)).thenReturn(blogUserInfo);			
-//		
-//		RequestBuilder request = MockMvcRequestBuilders//
-//				.post("/login")//
-//				.param("username",null)//
-//				.param("password", password)//
-//				.accept(MediaType.APPLICATION_JSON);
-//		
-//		mockMvc.perform(request)//
-//		.andExpect(view().name("Failed"));
-//	}
-//	
-//	@Test
-//	public void  testLogin_Failed5() throws Exception{
-//		
-//		String username = "熊大";
-//		String password = "xd1234";
-//		BlogUserInfo blogUserInfo = BlogUserInfo.builder()//
-//				.username(username)//
-//				.password(password)//
-//				.build();
-//		
-//		when(blogUserInfoRepository.findByUsername(username)).thenReturn(blogUserInfo);			
-//		
-//		RequestBuilder request = MockMvcRequestBuilders//
-//				.post("/login")//
-//				.param("username",username)//
-//				.param("password",null)//
-//				.accept(MediaType.APPLICATION_JSON);
-//		
-//		mockMvc.perform(request)//
-//		.andExpect(view().name("Failed"));
-//	}
-//	
-//	@Test
-//	public void  testLogin_Failed6() throws Exception{
-//		
-//		String username = "熊大";
-//		String password = "xd1234";
-//		BlogUserInfo blogUserInfo = BlogUserInfo.builder()//
-//				.username(username)//
-//				.password(password)//
-//				.build();
-//		
-//		when(blogUserInfoRepository.findByUsername(username)).thenReturn(blogUserInfo);			
-//		
-//		RequestBuilder request = MockMvcRequestBuilders//
-//				.post("/login")//
-//				.param("username",null)//
-//				.param("password", null)//
-//				.accept(MediaType.APPLICATION_JSON);
-//		
-//		mockMvc.perform(request)//
-//		.andExpect(view().name("Failed"));
-//	}
+	@Test
+	public void  testLogin_Failed4() throws Exception{
+		
+		String username ="熊大";
+		String password = "xd1234";
+		BlogUserInfo blogUserInfo = BlogUserInfo.builder()//
+				.username(username)//
+				.password(password)//
+				.build();
+		
+		when(blogUserInfoRepository.findByUsername(username)).thenReturn(blogUserInfo);			
+		
+		RequestBuilder request = MockMvcRequestBuilders//
+				.post("/login")//
+				.param("username","")//
+				.param("password", password)//
+				.accept(MediaType.APPLICATION_JSON);
+		
+		mockMvc.perform(request)//
+		.andExpect(view().name("Failed"));
+	}
+		
+	@Test
+	public void  testLogin_Failed5() throws Exception{
+		
+		String username = "熊大";
+		String password = "xd1234";
+		BlogUserInfo blogUserInfo = BlogUserInfo.builder()//
+				.username(username)//
+				.password(password)//
+				.build();
+		
+		when(blogUserInfoRepository.findByUsername(username)).thenReturn(blogUserInfo);			
+		
+		RequestBuilder request = MockMvcRequestBuilders//
+				.post("/login")//
+				.param("username",username)//
+				.param("password","")//
+				.accept(MediaType.APPLICATION_JSON);
+		
+		mockMvc.perform(request)//
+		.andExpect(view().name("Failed"));
+	}
+	
+	@Test
+	public void  testLogin_Failed6() throws Exception{
+		
+		String username = "熊大";
+		String password = "xd1234";
+		BlogUserInfo blogUserInfo = BlogUserInfo.builder()//
+				.username(username)//
+				.password(password)//
+				.build();
+		
+		when(blogUserInfoRepository.findByUsername(username)).thenReturn(blogUserInfo);			
+		
+		RequestBuilder request = MockMvcRequestBuilders//
+				.post("/login")//
+				.param("username","")//
+				.param("password", "")//
+				.accept(MediaType.APPLICATION_JSON);
+		
+		mockMvc.perform(request)//
+		.andExpect(view().name("Failed"));
+	}
 }
 
 

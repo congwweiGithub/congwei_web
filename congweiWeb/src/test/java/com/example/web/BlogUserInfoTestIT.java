@@ -17,36 +17,36 @@ public class BlogUserInfoTestIT {
 	@Autowired
 	private MockMvc mockMvc;
 		
-//	@Test
-//	public void login_succcess() throws Exception{
-//		
-//		String username = "熊大";
-//		String password = "xd1234";
-//								
-//		RequestBuilder request = MockMvcRequestBuilders//
-//				.post("/login")//
-//				.param("username",username)//
-//				.param("password", password)//
-//				.accept(MediaType.APPLICATION_JSON);
-//		
-//		mockMvc.perform(request)//
-//		.andExpect(view().name("redirect:/blog"));
-//	}
-	
 	@Test
-	public void register_succcess() throws Exception{
-		String username = null;
-		String password = null;		
-		String repassword = null;
+	public void login_succcess() throws Exception{
+		
+		String username = "熊大";
+		String password = "xd1234";
+								
 		RequestBuilder request = MockMvcRequestBuilders//
-				.post("/register")//
+				.post("/login")//
 				.param("username",username)//
 				.param("password", password)//
-				.param("password", repassword)//
 				.accept(MediaType.APPLICATION_JSON);
 		
 		mockMvc.perform(request)//
-		.andExpect(view().name("login"));
-	
+		.andExpect(view().name("redirect:/blog"));
 	}
+	
+//	@Test
+//	public void register_succcess() throws Exception{
+//		String username = null;
+//		String password = null;		
+//		String repassword = null;
+//		RequestBuilder request = MockMvcRequestBuilders//
+//				.post("/register")//
+//				.param("username",username)//
+//				.param("password", password)//
+//				.param("password", repassword)//
+//				.accept(MediaType.APPLICATION_JSON);
+//		
+//		mockMvc.perform(request)//
+//		.andExpect(view().name("login"));
+//	
+//	}
 }
