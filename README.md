@@ -18,3 +18,11 @@ d.BlogsInfo.java                  （完  成）
 e.BlogUserInfoRepository.java     （完  成）
 f.BlogsRepository.java            （完  成）
  
+单元测试：
+a.BlogUserInfoControllerTest.java 
+(login/register的get/post方法的成功失败测试通过，BlogUserInfoControllerTest的覆盖率97.2%，
+Controller中没有标红、黄的代码行，60行有一个蓝点，提示内容如下：
+Multiple markers at this line
+	- Line breakpoint:BlogUserController [line: 60] - login(String, String, 
+	 ModelAndView)，
+  没找到其他未覆盖的地方)
