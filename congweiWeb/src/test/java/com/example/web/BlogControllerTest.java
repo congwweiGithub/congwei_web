@@ -1,6 +1,5 @@
 package com.example.web;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -19,51 +18,49 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.example.model.BlogsInfo;
-import com.example.repository.BlogsInfoRepository;
-
-
+import com.example.model.BlogInfo;
+import com.example.repository.BlogInfoRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BlogsControllerTest {
+public class BlogControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
-	private BlogsInfoRepository blogsInfoRepository;
+	private BlogInfoRepository blogInfoRepository;
 
 //	@WithMockUser(username = "test")   //使用Security时使用的语句，写在@Test注释下		
 
-	@Test  //其中foreach语句标黄，for下边的if条件判断标红
-	public void testGetBlogView_Succcess() throws Exception{
-		
-		String username1 = "熊大";		
-		BlogsInfo blogsInfo1 = BlogsInfo.builder()//
-				.username(username1)//				
+	@Test // 其中foreach语句标黄，for下边的if条件判断标红
+	public void testGetBlogView_Succcess() throws Exception {
+
+		String username1 = "熊大";
+		BlogInfo blogInfo1 = BlogInfo.builder()//
+				.username(username1)//
 				.build();
-		String username2 = "熊二";		
-		BlogsInfo blogsInfo2 = BlogsInfo.builder()//
-				.username(username2)//				
-				.build();		
-		BlogsInfo blogsInfo3 = BlogsInfo.builder()//
-				.username(username1)//				
+		String username2 = "熊二";
+		BlogInfo blogInfo2 = BlogInfo.builder()//
+				.username(username2)//
+				.build();
+		BlogInfo blogInfo3 = BlogInfo.builder()//
+				.username(username1)//
 				.build();
 
-		when(blogsInfoRepository.findAll()).thenReturn(List.of(blogsInfo1,blogsInfo2,blogsInfo3));//return时自动创建链表
-		
+		when(blogInfoRepository.findAll()).thenReturn(List.of(blogInfo1, blogInfo2, blogInfo3));// return时自动创建链表
+
 		RequestBuilder request = MockMvcRequestBuilders//
 				.get("/blog")//
-				.param("username",username1)//
-				.accept(MediaType.APPLICATION_JSON);					
-		
+				.param("username", username1)//
+				.accept(MediaType.APPLICATION_JSON);
+
 		mockMvc.perform(request).andExpect(view().name("blog"))//
-		.andExpect(model().attribute("blogs", Matchers.everyItem(
-				Matchers.hasProperty("username", Matchers.is(username1))
-		))).andExpect(model().attribute("username", username1));
+				.andExpect(model().attribute("blogs",
+						Matchers.everyItem(Matchers.hasProperty("username", Matchers.is(username1)))))
+						.andExpect(model().attribute("username", username1));
 	}
 
-	@Test //通过
+	@Test // 通过
 	public void testGetEditView_Succcess() throws Exception {
 
 		String username = "熊大";
@@ -71,11 +68,10 @@ public class BlogsControllerTest {
 				.get("/edit")//
 				.param("username", username)//
 				.accept(MediaType.APPLICATION_JSON);
-		mockMvc.perform(request).andExpect(view().name("edit"))
-		.andExpect(model().attribute("username", username));
+		mockMvc.perform(request).andExpect(view().name("edit")).andExpect(model().attribute("username", username));
 	}
 
-	@Test  //通过
+	@Test // 通过
 	public void testGetLastPage_Succcess() throws Exception {
 		RequestBuilder request = MockMvcRequestBuilders//
 				.get("/lastPage")//
@@ -83,52 +79,51 @@ public class BlogsControllerTest {
 		mockMvc.perform(request).andExpect(view().name("lastPage"));
 	}
 
-	@Test  //通过 但不确定对错不对 
-	public void testGetUpdateView_Succcess() throws Exception{
-		
+	@Test // 通过 但不确定对错不对
+	public void testGetUpdateView_Succcess() throws Exception {
+
 		String username = "熊大";
-		Long blogId =  1l;	
-		BlogsInfo blogsInfo = BlogsInfo.builder()//
+		Long blogId = 1l;
+		BlogInfo blogInfo = BlogInfo.builder()//
 				.username(username)//
 				.blogId(blogId)//
 				.build();
-		when(blogsInfoRepository.findByBlogId(blogId)).thenReturn(blogsInfo);
-		
+		when(blogInfoRepository.findByBlogId(blogId)).thenReturn(blogInfo);
+
 		RequestBuilder request = MockMvcRequestBuilders//
 				.get("/update")//
-				.param("username","熊大")//	
-				.param("blogId","1")//
+				.param("username", username)//
+				.param("blogId", blogId.toString())//
 				.accept(MediaType.APPLICATION_JSON);
 		mockMvc.perform(request).andExpect(view().name("update"))//
-		.andExpect(model().attribute("username", username))//
-		.andExpect(model().attribute("blog", blogsInfo));
+				.andExpect(model().attribute("username", username))//
+				.andExpect(model().attribute("blog", blogInfo));
 	}
-	
-	@Test  //通过 但不确定对错不对 
-	public void testDeleteBlog_Succcess() throws Exception{
-		
+
+	@Test // 通过 但不确定对错不对
+	public void testDeleteBlog_Succcess() throws Exception {
+
 		String username = "熊大";
-		Long blogId =  1l;	
-		BlogsInfo blogsInfo = BlogsInfo.builder()//
+		Long blogId = 1l;
+		BlogInfo blogInfo = BlogInfo.builder()//
 				.username(username)//
 				.blogId(blogId)//
 				.build();
-		when(blogsInfoRepository.findByBlogId(blogId)).thenReturn(blogsInfo);
-		
+		when(blogInfoRepository.findByBlogId(blogId)).thenReturn(blogInfo);
+
 		RequestBuilder request = MockMvcRequestBuilders//
 				.get("/delete")//
-				.param("username","熊大")//	
-				.param("blogId",blogId.toString())//
+				.param("username", "熊大")//
+				.param("blogId", blogId.toString())//
 				.accept(MediaType.APPLICATION_JSON);
-	//	mockMvc.perform(request).andExpect(redirectedUrl("/blog"+"?username="+username))	
+		// mockMvc.perform(request).andExpect(redirectedUrl("/blog"+"?username="+username))
 		mockMvc.perform(request).andExpect(view().name("redirect:/blog"))//
-		.andExpect(model().attribute("username",username));//
+				.andExpect(model().attribute("username", username));//
 	}
-		
 
 	@Test // 通过
 	public void testAddBlog_Succcess() throws Exception {
-	
+
 		RequestBuilder request = MockMvcRequestBuilders//
 				.post("/edit")//
 				.param("title", "熊大日记1")//
@@ -136,7 +131,7 @@ public class BlogsControllerTest {
 				.param("article", "今天认识个叫光头强的家伙")//
 				.param("username", "熊大")//
 				.accept(MediaType.APPLICATION_JSON);
-//		when(blogsInfoRepository.save(any(BlogsInfo.class))).then(i -> i.getArgument(0));
+
 		mockMvc.perform(request)//
 				.andExpect(view().name("redirect:/blog"))//
 				.andExpect(model().attribute("username", "熊大"));//
@@ -152,13 +147,12 @@ public class BlogsControllerTest {
 				.param("article", "今天认识个叫光头强的家伙")//
 				.param("username", "熊大")//
 				.accept(MediaType.APPLICATION_JSON);
-//		when(blogsInfoRepository.save(any(BlogsInfo.class))).then(i -> i.getArgument(0));
 
 		mockMvc.perform(request)//
 				.andExpect(view().name("editFailed"));//
 	}
-	
-	@Test //通过
+
+	@Test // 通过
 	public void testAaddBlog_Failed_DescriptionIsEmpty() throws Exception {
 
 		RequestBuilder request = MockMvcRequestBuilders//
@@ -168,40 +162,36 @@ public class BlogsControllerTest {
 				.param("article", "今天认识个叫光头强的家伙")//
 				.param("username", "熊大")//
 				.accept(MediaType.APPLICATION_JSON);
-//		when(blogsInfoRepository.save(any(BlogsInfo.class))).then(i -> i.getArgument(0));
 
 		mockMvc.perform(request)//
 				.andExpect(view().name("editFailed"));//
 	}
-	
-	@Test //通过
+
+	@Test // 通过
 	public void testAaddBlog_Failed_ArticleIsEmpty() throws Exception {
 
 		RequestBuilder request = MockMvcRequestBuilders//
 				.post("/edit")//
 				.param("title", "熊大日记1")//
-				.param("description","第一天 5.25 天气 晴" )//
-				.param("article","")//
+				.param("description", "第一天 5.25 天气 晴")//
+				.param("article", "")//
 				.param("username", "熊大")//
 				.accept(MediaType.APPLICATION_JSON);
-//		when(blogsInfoRepository.save(any(BlogsInfo.class))).then(i -> i.getArgument(0));
 
 		mockMvc.perform(request)//
 				.andExpect(view().name("editFailed"));//
 	}
-	
-	@Test //通过
-	public void testAaddBlog_Failed_AllEmpty() throws Exception {
 
+	@Test // 通过
+	public void testAaddBlog_Failed_AllEmpty() throws Exception {
 
 		RequestBuilder request = MockMvcRequestBuilders//
 				.post("/edit")//
 				.param("title", "")//
-				.param("description","" )//
-				.param("article","")//
+				.param("description", "")//
+				.param("article", "")//
 				.param("username", "熊大")//
 				.accept(MediaType.APPLICATION_JSON);
-		when(blogsInfoRepository.save(any(BlogsInfo.class))).then(i -> i.getArgument(0));
 
 		mockMvc.perform(request)//
 				.andExpect(view().name("editFailed"));//
@@ -209,124 +199,108 @@ public class BlogsControllerTest {
 
 	@Test // 通过（post中blogId和username有疑问）
 	public void testUpdate_Succcess() throws Exception {
-				
+
 		String username = "熊大";
 		Long blogId = 1l;
-		BlogsInfo blogsInfo = BlogsInfo.builder()//
+		BlogInfo blogInfo = BlogInfo.builder()//
 				.username(username)//
 				.blogId(blogId)//
-				.build();		
-		when(blogsInfoRepository.findByBlogId(blogId)).thenReturn(blogsInfo);
-	
+				.build();
+		when(blogInfoRepository.findByBlogId(blogId)).thenReturn(blogInfo);
+
 		RequestBuilder request = MockMvcRequestBuilders//
 				.post("/update")//
 				.param("title", "熊大日记1")//
 				.param("description", "第一天 5.25 天气 晴")//
 				.param("article", "今天认识个叫光头强的家伙，是个大光头")//
-				.param("username", "熊大")//
-				.param("blogId", "1")//
+				.param("username", username)//
+				.param("blogId",  blogId.toString())//
 				.accept(MediaType.APPLICATION_JSON);
-		
+
 		mockMvc.perform(request)//
 				.andExpect(view().name("redirect:/blog"))
 				.andExpect(model().attribute("username", username));
-		}
-	
+	}
+
 	@Test // 通过
 	public void testUpdate_Failed_TitleIsEmpty() throws Exception {
-				
+
 		String username = "熊大";
 		Long blogId = 1l;
-		BlogsInfo blogsInfo = BlogsInfo.builder()//
-				.username(username)//
-				.blogId(blogId)//
-				.build();	
-		when(blogsInfoRepository.findByBlogId(blogId)).thenReturn(blogsInfo);
-		
+//		BlogsInfo blogInfo = BlogsInfo.builder()//
+//				.username(username)//
+//				.blogId(blogId)//
+//				.build();
+//		when(blogInfoRepository.findByBlogId(blogId)).thenReturn(blogInfo);
+
 		RequestBuilder request = MockMvcRequestBuilders//
 				.post("/update")//
 				.param("title", "")//
 				.param("description", "第一天 5.25 天气 晴")//
 				.param("article", "今天认识个叫光头强的家伙，是个大光头")//
-				.param("username", "熊大")//
-				.param("blogId", "1")//
+				.param("username",username)//
+				.param("blogId", blogId.toString())//
 				.accept(MediaType.APPLICATION_JSON);
-		
+
 		mockMvc.perform(request)//
 				.andExpect(view().name("editFailed"));//
-		}
+	}
 
 	@Test // 通过
 	public void testUpdate_Failed_DescriptionIsEmpty() throws Exception {
-				
+
 		String username = "熊大";
 		Long blogId = 1l;
-		BlogsInfo blogsInfo = BlogsInfo.builder()//
-				.username(username)//
-				.blogId(blogId)//
-				.build();		
-		when(blogsInfoRepository.findByBlogId(blogId)).thenReturn(blogsInfo);
-		
+
 		RequestBuilder request = MockMvcRequestBuilders//
 				.post("/update")//
 				.param("title", "熊大日记1")//
 				.param("description", "")//
 				.param("article", "今天认识个叫光头强的家伙，是个大光头")//
-				.param("username", "熊大")//
-				.param("blogId", "1")//
+				.param("username",username)//
+				.param("blogId", blogId.toString())//
 				.accept(MediaType.APPLICATION_JSON);
-	
+
 		mockMvc.perform(request)//
 				.andExpect(view().name("editFailed"));//
-		}
-	
+	}
+
 	@Test // 通过
 	public void testUpdate_Failed_ArticleIsEmpty() throws Exception {
-				
+
 		String username = "熊大";
 		Long blogId = 1l;
-		BlogsInfo blogsInfo = BlogsInfo.builder()//
-				.username(username)//
-				.blogId(blogId)//
-				.build();	
-		when(blogsInfoRepository.findByBlogId(blogId)).thenReturn(blogsInfo);
-		
+
 		RequestBuilder request = MockMvcRequestBuilders//
 				.post("/update")//
 				.param("title", "熊大日记1")//
 				.param("description", "第一天 5.25 天气 晴")//
 				.param("article", "")//
-				.param("username", "熊大")//
-				.param("blogId", "1")//
-				.accept(MediaType.APPLICATION_JSON);		
+				.param("username",username)//
+				.param("blogId", blogId.toString())//
+				.accept(MediaType.APPLICATION_JSON);
 
 		mockMvc.perform(request)//
 				.andExpect(view().name("editFailed"));//
-		}
-	
+	}
+
 	@Test // 通过
 	public void testUpdate_Failed_AllEmpty() throws Exception {
-				
+
 		String username = "熊大";
 		Long blogId = 1l;
-		BlogsInfo blogsInfo = BlogsInfo.builder()//
-				.username(username)//
-				.blogId(blogId)//
-				.build();		
-		when(blogsInfoRepository.findByBlogId(blogId)).thenReturn(blogsInfo);
-		
+
 		RequestBuilder request = MockMvcRequestBuilders//
 				.post("/update")//
 				.param("title", "")//
 				.param("description", "")//
 				.param("article", "")//
-				.param("username", "熊大")//
-				.param("blogId", "1")//
+				.param("username",username)//
+				.param("blogId", blogId.toString())//
 				.accept(MediaType.APPLICATION_JSON);
-		
+
 		mockMvc.perform(request)//
 				.andExpect(view().name("editFailed"));//
-		}
-	
+	}
 
 }

@@ -1,5 +1,6 @@
 package com.example.web;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import org.junit.jupiter.api.Test;
@@ -39,21 +40,63 @@ public class BlogUserInfoTestIT {
 
 		RequestBuilder request = MockMvcRequestBuilders//
 				.post("/register")//
-				.param("username","熊大")//
-				.param("pw", "xd1234")//
-				.param("rpw", "xd1234")//
+				.param("username","毛毛")//
+				.param("pw", "mmjj1234")//
+				.param("rpw", "mmjj1234")//
 				.accept(MediaType.APPLICATION_JSON);			
-//		when(blogUserInfoRepository.save(any(BlogUserInfo.class))).then(i -> i.getArgument(0));  
 		
 		mockMvc.perform(request).andExpect(view().name("login"));
 	
 	}
 	
 	@Test // 待修改
+	public void testRegister_Failed_UsernameLessTan2() throws Exception{		
+
+		RequestBuilder request = MockMvcRequestBuilders//
+				.post("/register")//
+				.param("username","吉")//
+				.param("pw", "jj1234")//
+				.param("rpw", "jj1234")//
+				.accept(MediaType.APPLICATION_JSON);			
+		
+		mockMvc.perform(request).andExpect(view().name("Failed"));
+	
+	}
+	
+	@Test // 待修改
+	public void testRegister_Failed_PassWordLessTan6() throws Exception{		
+
+		RequestBuilder request = MockMvcRequestBuilders//
+				.post("/register")//
+				.param("username","吉吉")//
+				.param("pw", "jj123")//
+				.param("rpw", "jj123")//
+				.accept(MediaType.APPLICATION_JSON);			
+		
+		mockMvc.perform(request).andExpect(view().name("Failed"));
+	
+	}
+	
+	@Test // 待修改
+	public void testRegister_Failed_RepassWordUnequalToPassWord() throws Exception{		
+
+		RequestBuilder request = MockMvcRequestBuilders//
+				.post("/register")//
+				.param("username","吉吉")//
+				.param("pw", "jj1234")//
+				.param("rpw", "jj1235")//
+				.accept(MediaType.APPLICATION_JSON);			
+		
+		mockMvc.perform(request).andExpect(view().name("Failed"));
+	
+	}
+	
+	
+	@Test // 待修改
 	public void testLogin_Succcess() throws Exception{
 		
-		String username = "熊大";
-		String password = "xd1234";
+		String username = "吉吉";
+		String password = "jj1234";
 								
 		RequestBuilder request = MockMvcRequestBuilders//
 				.post("/login")//
@@ -62,9 +105,40 @@ public class BlogUserInfoTestIT {
 				.accept(MediaType.APPLICATION_JSON);
 		
 		mockMvc.perform(request)//
-		.andExpect(view().name("redirect:/blog"));
+		.andExpect(view().name("redirect:/blog"))//
+		.andExpect(model().attribute("username",username));
 	}
 	
-	
+	@Test // 待修改
+	public void testLogin_Failed_UsernameMiss() throws Exception{
+		
+		String username = "吉吉吉";
+		String password = "jj1234";
+								
+		RequestBuilder request = MockMvcRequestBuilders//
+				.post("/login")//
+				.param("username",username)//
+				.param("password", password)//
+				.accept(MediaType.APPLICATION_JSON);
+		
+		mockMvc.perform(request)//
+		.andExpect(view().name("Failed"));
+	}
 
+	@Test // 待修改
+	public void testLogin_Failed_PassWordMiss() throws Exception{
+		
+		String username = "吉吉";
+		String password = "jj1235";
+								
+		RequestBuilder request = MockMvcRequestBuilders//
+				.post("/login")//
+				.param("username",username)//
+				.param("password", password)//
+				.accept(MediaType.APPLICATION_JSON);
+		
+		mockMvc.perform(request)//
+		.andExpect(view().name("Failed"));
+	}
+	
 }

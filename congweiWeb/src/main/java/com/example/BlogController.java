@@ -10,14 +10,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.model.BlogsInfo;
-import com.example.repository.BlogsInfoRepository;
+import com.example.model.BlogInfo;
+import com.example.repository.BlogInfoRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
-public class BlogsController {
+@Slf4j
+public class BlogController {
 
 	@Autowired
-	private BlogsInfoRepository blogsInfoRepository;
+	private BlogInfoRepository blogInfoRepository;
 
 	@GetMapping("/edit")	
 	public ModelAndView getEditView(//
@@ -25,7 +28,7 @@ public class BlogsController {
 			ModelAndView mv) {
 			mv.addObject("username",username);
 			mv.setViewName("edit");
-			System.out.println("进入编辑界面");
+			log.info("进入编辑界面");
 		return mv;
 	}
 
@@ -37,16 +40,16 @@ public class BlogsController {
 
 	
 
-	@GetMapping("/update") // 此操作在register中进
-	public ModelAndView updateBlog( //
+	@GetMapping("/update") // 
+	public ModelAndView getUpdateView( //
 			String username,//
 			Long blogId, //
 			ModelAndView mv) {
-		BlogsInfo blogsInfo = blogsInfoRepository.findByBlogId(blogId);
-		mv.addObject("blog", blogsInfo);		
+		BlogInfo blogInfo = blogInfoRepository.findByBlogId(blogId);
+		mv.addObject("blog", blogInfo);		
 		mv.addObject("username", username);
 		mv.setViewName("update");
-		System.out.println("进入更新界面");
+		log.info("进入更新界面");
 		return mv; 
 	}
 
@@ -55,11 +58,11 @@ public class BlogsController {
 			String username,//
 			Long blogId, //
 			ModelAndView mv) {
-		BlogsInfo blogsInfo = blogsInfoRepository.findByBlogId(blogId);		
-		blogsInfoRepository.delete(blogsInfo);
+		BlogInfo blogInfo = blogInfoRepository.findByBlogId(blogId);		
+		blogInfoRepository.delete(blogInfo);
 		mv.addObject("username", username);
 		mv.setViewName("redirect:/blog");
-		System.out.println("已执行删除操作");
+		log.info("已执行删除操作");
 		return mv; 
 	}
 
@@ -75,16 +78,16 @@ public class BlogsController {
 				|| article.isEmpty()) { //
 			mv.setViewName("editFailed");
 		} else {
-			BlogsInfo blogsInfo = BlogsInfo.builder()//
+			BlogInfo blogInfo = BlogInfo.builder()//
 					.title(title)//
 					.description(description)//
 					.article(article)//
 					.username(username)
 					.build();
-			blogsInfoRepository.save(blogsInfo);
+			blogInfoRepository.save(blogInfo);
 			mv.addObject("username", username);
 			mv.setViewName("redirect:/blog");
-			System.out.println("新增内容成功");
+			log.info("新增blog成功");;
 		}
 		return mv;
 	}
@@ -101,14 +104,14 @@ public class BlogsController {
 				|| article.isEmpty()) { //
 			mv.setViewName("editFailed");
 		} else {
-			BlogsInfo blogsInfo = blogsInfoRepository.findByBlogId(blogId);
-			blogsInfo.setTitle(title);
-			blogsInfo.setDescription(description);
-			blogsInfo.setArticle(article);		
-			blogsInfoRepository.save(blogsInfo);
+			BlogInfo blogInfo = blogInfoRepository.findByBlogId(blogId);
+			blogInfo.setTitle(title);
+			blogInfo.setDescription(description);
+			blogInfo.setArticle(article);		
+			blogInfoRepository.save(blogInfo);
 			mv.addObject("username", username);
 			mv.setViewName("redirect:/blog");
-			System.out.println("更新内容成功");
+			log.info("更新blog成功");;
 		}
 		return mv;
 	}
@@ -117,10 +120,10 @@ public class BlogsController {
 	public ModelAndView getBlogView( //
 			String username, //
 			ModelAndView mv) {
-		List<BlogsInfo> blogs = blogsInfoRepository.findAll();
-				List<BlogsInfo> blog = new ArrayList<>();
+		List<BlogInfo> blogs = blogInfoRepository.findAll();
+				List<BlogInfo> blog = new ArrayList<>();
 		
-				for(BlogsInfo b:blogs) {			
+				for(BlogInfo b:blogs) {			
 					if(b.getUsername().equals(username)) {
 						blog.add(b);
 					}
@@ -128,7 +131,7 @@ public class BlogsController {
 		mv.addObject("username", username);
 		mv.addObject("blogs", blog);
 		mv.setViewName("blog");
-		System.out.println("进入"+username+"的博客页面");
+		log.info("进入"+username+"的博客页面");
 		return mv;
 	}
 	

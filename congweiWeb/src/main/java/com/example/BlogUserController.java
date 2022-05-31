@@ -10,24 +10,27 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.model.BlogUserInfo;
 import com.example.repository.BlogUserInfoRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class BlogUserController {
 
 	@Autowired
 	private BlogUserInfoRepository bloguserInfoRepository;
+		
+	@GetMapping("/login")
+	public String getLoginView() {
+		log.info("进入登陆界面");
+		return "login";
+	}
 	
 	@GetMapping("/register")
 	public String getRegisterView() {
-
-		return "register";
+		log.info("进入注册界面");
+		return "register";		
 	}
-
-	@GetMapping("/login")
-	public String getLoginView() {
-
-		return "login";
-	}
-		
+	
 	@PostMapping("/register")  //此操作在register中进行
 	public ModelAndView register(//
 			@RequestParam("username") String username, //
@@ -43,7 +46,7 @@ public class BlogUserController {
 			bloguserInfoRepository.save(bloguserInfo);
 			mv.addObject("username", bloguserInfo.getUsername());
 			mv.setViewName("login");
-			System.err.println("注册成功");
+			log.info("注册成功，返回注册页面");
 		} else {			
 			mv.setViewName("Failed");
 		}
@@ -59,7 +62,7 @@ public class BlogUserController {
 		BlogUserInfo bloguserInfo = bloguserInfoRepository.findByUsername(username);
 		if (bloguserInfo != null && password.equals(bloguserInfo.getPassword())) {
 			mv.setViewName("redirect:/blog");	
-			System.out.println("登陆成功");
+			log.info("登陆成功进入"+username+"博客界面");
 		} else {
 			mv.setViewName("Failed");
 		}

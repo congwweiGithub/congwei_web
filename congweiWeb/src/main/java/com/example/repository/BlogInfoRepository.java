@@ -3,12 +3,12 @@ package com.example.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.example.model.BlogsInfo;
+import com.example.model.BlogInfo;
 
 @Repository
-public interface BlogsInfoRepository extends JpaRepository<BlogsInfo,Long> {
+public interface BlogInfoRepository extends JpaRepository<BlogInfo,Long> {
 
-	BlogsInfo findByBlogId(Long blogId);		
+	BlogInfo findByBlogId(Long blogId);		
 	
 }
 
