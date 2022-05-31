@@ -17,8 +17,40 @@ public class BlogUserInfoTestIT {
 	@Autowired
 	private MockMvc mockMvc;
 		
-	@Test
-	public void login_succcess() throws Exception{
+	@Test // 待修改
+	public void testGetLoginView_Succcess() throws Exception{
+		RequestBuilder request = MockMvcRequestBuilders//
+				.get("/login")//
+				.accept(MediaType.APPLICATION_JSON);
+		mockMvc.perform(request).andExpect(view().name("login"));
+	}
+	
+	@Test // 待修改
+	public void testGetRegisterView_Succcess() throws Exception{		
+		
+		RequestBuilder request = MockMvcRequestBuilders//
+				.get("/register")//
+				.accept(MediaType.APPLICATION_JSON);		
+		mockMvc.perform(request).andExpect(view().name("register"));	
+	}
+	
+	@Test // 待修改
+	public void testRegister_Succcess() throws Exception{		
+
+		RequestBuilder request = MockMvcRequestBuilders//
+				.post("/register")//
+				.param("username","熊大")//
+				.param("pw", "xd1234")//
+				.param("rpw", "xd1234")//
+				.accept(MediaType.APPLICATION_JSON);			
+//		when(blogUserInfoRepository.save(any(BlogUserInfo.class))).then(i -> i.getArgument(0));  
+		
+		mockMvc.perform(request).andExpect(view().name("login"));
+	
+	}
+	
+	@Test // 待修改
+	public void testLogin_Succcess() throws Exception{
 		
 		String username = "熊大";
 		String password = "xd1234";
@@ -33,20 +65,6 @@ public class BlogUserInfoTestIT {
 		.andExpect(view().name("redirect:/blog"));
 	}
 	
-//	@Test
-//	public void register_succcess() throws Exception{
-//		String username = null;
-//		String password = null;		
-//		String repassword = null;
-//		RequestBuilder request = MockMvcRequestBuilders//
-//				.post("/register")//
-//				.param("username",username)//
-//				.param("password", password)//
-//				.param("password", repassword)//
-//				.accept(MediaType.APPLICATION_JSON);
-//		
-//		mockMvc.perform(request)//
-//		.andExpect(view().name("login"));
-//	
-//	}
+	
+
 }
