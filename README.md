@@ -22,5 +22,10 @@ f.BlogsRepository.java            （完  成）
 a.BlogUserControllerTest.java 
 （BlogUserInfoControllerTest的覆盖率100%）
 b.BlogsControllerTest.java 
-（还差getBlogView、updateBlog、deleteBlog三个GetMapping方法没添加测试，
-目前BlogsController覆盖率51.5%）
+（BlogsController覆盖率100%）
+
+集成测试：
+a.BlogUserInfoTestIT.java 
+（刚创建，待写测试方法）
+b.BlogsInfoTestIT.java
+（待创建）
