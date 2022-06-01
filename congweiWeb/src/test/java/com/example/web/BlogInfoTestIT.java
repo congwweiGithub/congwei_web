@@ -1,6 +1,5 @@
 package com.example.web;
 
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -83,12 +82,14 @@ public class BlogInfoTestIT {
 	public void testDeleteBlog_Succcess() throws Exception {
 
 		String username = "熊大";
-		Long blogId = 1l;
-//		BlogInfo blogInfo = BlogInfo.builder()//
-//				.username(username)//
-//				.blogId(blogId)//
-//				.build();
-//		when(blogInfoRepository.findByBlogId(blogId)).thenReturn(blogInfo);
+		Long blogId = 5l;
+		BlogInfo blogInfo = BlogInfo.builder()//
+				.username(username)//
+				.blogId(blogId)//
+				.title("吉吉日记1")//
+				.description("第一天 5.25 天气 晴 ")//
+				.article("今天森林王国来了个叫光头强的家伙")
+				.build();
 
 		RequestBuilder request = MockMvcRequestBuilders//
 				.get("/delete")//
